@@ -1,10 +1,18 @@
 package main
 
 import (
-    "fmt"
+    "time"
+
+    "github.com/bootdobdev/go-api-gate/courses/projects/pokedexcli/internal/pokeapi"
 )
 
 
 func main() {
-    print(fmt.Sprintf("I'm the 1st function\n"))
+    pokeClient := pokeapi.NewClient(5*time.Second, 5*time.Minute)
+    conf := &config{
+        pokeapiClient: pokeClient,
+        caughtPokemon: map[string]pokeapi.Pokemon{},
+    }
+
+    startRepl(conf)
 }
