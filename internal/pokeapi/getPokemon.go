@@ -15,8 +15,13 @@ func (c *Client) GetPokemon(pokemonName string) (Pokemon, error) {
 		if err != nil {
 			return Pokemon{}, err
 		}
-		return pokemonResp, nill
+		return pokemonResp, nil
 	}
+
+    req, err := http.NewRequest("GET", url, nil)
+    if err != nil {
+        return Pokemon{}, err
+    }
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {

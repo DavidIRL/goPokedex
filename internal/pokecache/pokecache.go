@@ -29,6 +29,7 @@ func NewCache(interval time.Duration) Cache {
 func (c *Cache) Add(key string, value []byte) {
 	c.mux.Lock()
 	defer c.mux.Unlock()
+
 	c.cache[key] = cacheEntry{
 		createdAt: time.Now().UTC(),
 		val:       value,
@@ -38,6 +39,7 @@ func (c *Cache) Add(key string, value []byte) {
 func (c *Cache) Get(key string) ([]byte, bool) {
 	c.mux.Lock()
 	defer c.mux.Unlock()
+
 	val, ok := c.cache[key]
 	return val.val, ok
 }
@@ -52,6 +54,7 @@ func (c *Cache) reapLoop(interval time.Duration) {
 func (c *Cache) reap(now time.Time, last time.Duration) {
 	c.mux.Lock()
 	defer c.mux.Unlock()
+
 	for k, v := range c.cache {
 		if v.createdAt.Before(now.Add(-last)) {
 			delete(c.cache, k)

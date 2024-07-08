@@ -6,25 +6,18 @@ import (
 	"os"
 	"strings"
 
-	"github.com/bootdotdev/go-api-gate/courses/projects/pokedexcli/internal/pokeapi"
-	command "goPokedex/commands"
+	"github.com/DavidIRL/goPokedex/internal/pokeapi"
 )
 
-type config struct {
-	pokeapiClient    pokeapi.Client
+type Config struct {
+	PokeapiClient    pokeapi.Client
 	nextLocationsURL *string
 	prevLocationsURL *string
-	caughtPokemon    map[string]pokeapi.Pokemon
+	CaughtPokemon    map[string]pokeapi.Pokemon
 }
 
-type cliCommand struct {
-	name        string
-	description string
-	callback    func(*config, ...string) error
-}
-
-func StartRepl(conf *config) {
-	scanner := bufio.NewScanner(os.Stdin)
+func StartRepl(conf *Config) {
+    scanner := bufio.NewScanner(os.Stdin)
 	for { //ever
 		fmt.Print("goPokedex > ")
 		scanner.Scan()
@@ -59,6 +52,12 @@ func cleanInput(text string) []string {
 	return words
 }
 
+type cliCommand struct {
+	name        string
+	description string
+	callback    func(*Config, ...string) error
+}
+
 func GetCommands() map[string]cliCommand {
 	return map[string]cliCommand{
 		"help": {
@@ -81,13 +80,13 @@ func GetCommands() map[string]cliCommand {
 			description: "Explore the entered location",
 			callback:    commandExplore,
 		},
-		"mapnext": {
-			name:        "map next",
+		"map": {
+			name:        "map",
 			description: "View the next page of locations",
 			callback:    commandMapf,
 		},
-		"mapprev": {
-			name:        "map previous",
+		"mapb": {
+			name:        "mapb",
 			description: "View the previous page of locations",
 			callback:    commandMapb,
 		},

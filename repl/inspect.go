@@ -1,18 +1,17 @@
-package commands
+package repl
 
 import (
 	"errors"
 	"fmt"
-	"goPokedex/repl"
 )
 
-func CommandInspect(conf *repl.config, args ...string) error {
+func commandInspect(conf *Config, args ...string) error {
 	if len(args) != 1 {
 		return errors.New("A Pokemon name must be provided")
 	}
 
 	name := args[0]
-	pokemon, ok := conf.caughtPokemon[name]
+	pokemon, ok := conf.CaughtPokemon[name]
 	if !ok {
 		return errors.New("You have not yet caught that Pokemon")
 	}

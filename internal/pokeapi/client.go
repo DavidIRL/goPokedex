@@ -1,7 +1,7 @@
 package pokeapi
 
 import (
-	"github.com/bootdotdev/go-api-gate/courses/projects/pokedexcli/internal/pokecache"
+	"github.com/DavidIRL/goPokedex/internal/pokecache"
 	"net/http"
 	"time"
 )
@@ -11,7 +11,7 @@ type Client struct {
 	httpClient http.Client
 }
 
-func NewClient(timeout, cacheInterval, time.Duration) Client {
+func NewClient(timeout, cacheInterval time.Duration) Client {
 	return Client{
 		cache: pokecache.NewCache(cacheInterval),
 		httpClient: http.Client{

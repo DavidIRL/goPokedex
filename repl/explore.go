@@ -1,18 +1,17 @@
-package commands
+package repl
 
 import (
 	"errors"
 	"fmt"
-	"goPokedex/repl"
 )
 
-func CommandExplore(conf *repl.config, args ...string) error {
+func commandExplore(conf *Config, args ...string) error {
 	if len(args) != 1 {
 		return errors.New("A location name must be provided")
 	}
 
 	name := args[0]
-	location, err := conf.pokeapiClient.GetLocation(name)
+	location, err := conf.PokeapiClient.GetLocation(name)
 	if err != nil {
 		return err
 	}

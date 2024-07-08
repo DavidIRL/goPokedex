@@ -29,17 +29,17 @@ func (c *Client) ListLocations(pageURL *string) (RespLocations, error) {
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
-		return RespLocations{}, error
+		return RespLocations{}, err
 	}
 	defer resp.Body.Close()
 
 	data, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return RespLocations, err
-	}
+		return RespLocations{}, err
+    }
 
 	locationResp := RespLocations{}
-	err := json.Unmarshal(data, &locationResp)
+	err = json.Unmarshal(data, &locationResp)
 	if err != nil {
 		return RespLocations{}, err
 	}

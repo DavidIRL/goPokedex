@@ -1,11 +1,10 @@
-package commands
+package repl
 
 import (
 	"fmt"
-	"goPokedex/repl"
 )
 
-func CommandHelp(conf *repl.config, args ...string) error {
+func commandHelp(conf *Config, args ...string) error {
 	fmt.Println("\nWelcome to the goPokedex!")
 	fmt.Println("Usage:\n")
 	for _, cmd := range GetCommands() {
